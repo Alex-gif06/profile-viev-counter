@@ -3,55 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Счетчик просмотров</title>
+    <meta http-equiv="refresh" content="30">  <!-- Автообновление страницы каждые 30 секунд -->
+    <title>TruckersMP Profile</title>
 </head>
 <body>
+    <h1>Мой профиль TruckersMP</h1>
+    
+    <p>Просмотры профиля:  
+    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://alex-gif06.github.io/profile-viev-counter/&title=Profile%20Views" alt="Счетчик просмотров">
+</p>
 
-    <h1>Счетчик просмотров</h1>
-    <img id="counter-img" src="" alt="Счетчик просмотров">
-
-    <script>
-        const gistId = "https://gist.github.com/Alex-gif06/00e04d00f20fdd9608e8001262710807#file-views-json";  // Замените на ваш Gist ID
-        const token = "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";  // Замените на ваш GitHub Token
-        const gistUrl = `https://api.github.com/gists/${gistId}`;
-
-        async function updateCounter() {
-            try {
-                // Получаем текущие данные из Gist
-                let response = await fetch(gistUrl, {
-                    headers: { "Authorization": `token ${token}` }
-                });
-                let gist = await response.json();
-                let views = JSON.parse(gist.files["views.json"].content).views + 1;
-
-                // Обновляем JSON с новым количеством просмотров
-                let updatedContent = JSON.stringify({ views });
-
-                // Отправляем обновленные данные обратно в Gist
-                await fetch(gistUrl, {
-                    method: "PATCH",
-                    headers: {
-                        "Authorization": `token ${token}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        files: {
-                            "views.json": { content: updatedContent }
-                        }
-                    })
-                });
-
-                // Обновляем изображение счетчика
-                document.getElementById("counter-img").src = 
-                    `https://quickchart.io/chart?bkg=white&c={type:'bar',data:{labels:['Просмотры'],datasets:[{label:'Счетчик',data:[${views}]}]}}`;
-
-            } catch (error) {
-                console.error("Ошибка обновления счетчика:", error);
-            }
-        }
-
-        updateCounter();
-    </script>
+    <!-- TruckersMP Profile -->
+    <iframe src="https://truckersmp.com/user/4757507" width="100%" height="800"></iframe>
 
 </body>
 </html>
