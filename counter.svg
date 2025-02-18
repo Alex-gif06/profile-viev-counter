@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="30">
+  <rect width="150" height="30" rx="5" ry="5" fill="#0078D7"/>
+  <text x="50%" y="50%" font-size="16" fill="white" font-family="Arial" text-anchor="middle" alignment-baseline="middle">
+    Profile Views
+  </text>
+</svg>
