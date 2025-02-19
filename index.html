@@ -7,7 +7,8 @@
 </head>
 <body>
     <h1>Profile View Counter</h1>
-    <div id="counter"></div>
+    <div id="counter"></div> <!-- Это место, где будет отображаться счетчик -->
+
     <script>
         const GIST_ID = "0bd6b8364a62335974d0d95991edb8c2"; // Замените на свой Gist ID
         const GITHUB_TOKEN = "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"; // Замените на свой GitHub Token (НЕ публикуйте публично)
@@ -24,8 +25,10 @@
             let gistData = await response.json();
             let counterData = JSON.parse(gistData.files["counter.json"].content);
             
+            // Увеличиваем количество просмотров
             counterData.views += 1;
             
+            // Обновляем данные в Gist
             await fetch(gistUrl, {
                 method: "PATCH",
                 headers,
@@ -36,15 +39,17 @@
                 })
             });
 
+            // Генерация изображения с новым значением
             generateCounterImage(counterData.views);
         }
 
         function generateCounterImage(count) {
-    const digits = count.toString().split("").map(d => `<img src="https://alex-gif06.github.io/profile-viev-counter/digit_0.png" alt="${d}">`).join(''); https://alex-gif06.github.io/profile-viev-counter/digit_0.png
-    document.getElementById("counter").innerHTML = digits;
-}
+            // Пример с динамическим обновлением картинки
+            const imageUrl = `https://alex-gif06.github.io/profile-viev-counter/counter.svg?${new Date().getTime()}`; // Для обновления картинки
+            document.getElementById("counter").innerHTML = `<img src="${imageUrl}" alt="Profile Views">`; // Обновление на странице
+        }
 
-        updateCounter();
+        updateCounter();  // Вызов функции для обновления счетчика
     </script>
 </body>
 </html>
