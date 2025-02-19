@@ -1,20 +1,49 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="30">  <!-- Автообновление страницы каждые 30 секунд -->
-    <title>TruckersMP Profile</title>
+    <title>Profile View Counter</title>
 </head>
 <body>
-    <h1>Мой профиль TruckersMP</h1>
-    
-    <p>Просмотры профиля:  
-    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://alex-gif06.github.io/profile-viev-counter/&title=Profile%20Views" alt="Счетчик просмотров">
-</p>
+    <img id="counter" src="" alt="View Counter">
+    <script>
+        const GIST_ID = "da9c78ee734a970ed1efc2918ea5c025"; // Замените на свой Gist ID
+        const GITHUB_TOKEN = "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"; // Замените на свой GitHub Token (НЕ публикуйте публично)
 
-    <!-- TruckersMP Profile -->
-    <iframe src="https://truckersmp.com/user/4757507" width="100%" height="800"></iframe>
+        async function updateCounter() {
+            const gistUrl = `https://api.github.com/gists/${GIST_ID}`;
+            const headers = {
+                "Authorization": `Bearer ${GITHUB_TOKEN}`,
+                "Accept": "application/vnd.github.v3+json",
+                "Content-Type": "application/json"
+            };
+            
+            let response = await fetch(gistUrl, { headers });
+            let gistData = await response.json();
+            let counterData = JSON.parse(gistData.files["counter.json"].content);
+            
+            counterData.views += 1;
+            
+            await fetch(gistUrl, {
+                method: "PATCH",
+                headers,
+                body: JSON.stringify({
+                    files: {
+                        "counter.json": { content: JSON.stringify(counterData, null, 2) }
+                    }
+                })
+            });
 
+            generateCounterImage(counterData.views);
+        }
+
+        function generateCounterImage(count) {
+            const digits = count.toString().split("").map(d => `<img src="digit_${d}.png">`).join('');
+            document.getElementById("counter").innerHTML = digits;
+        }
+        
+        updateCounter();
+    </script>
 </body>
 </html>
