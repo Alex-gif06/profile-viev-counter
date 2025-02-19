@@ -6,7 +6,8 @@
     <title>Profile View Counter</title>
 </head>
 <body>
-    <img id="counter" src="" alt="View Counter">
+    <h1>Profile View Counter</h1>
+    <div id="counter"></div>
     <script>
         const GIST_ID = "da9c78ee734a970ed1efc2918ea5c025"; // Замените на свой Gist ID
         const GITHUB_TOKEN = "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"; // Замените на свой GitHub Token (НЕ публикуйте публично)
@@ -42,7 +43,7 @@
             const digits = count.toString().split("").map(d => `<img src="digit_${d}.png">`).join('');
             document.getElementById("counter").innerHTML = digits;
         }
-        
+
         updateCounter();
     </script>
 </body>
